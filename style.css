@@ -1,0 +1,26 @@
+.control {
+    position: absolute;
+    top: 10%;
+    margin-left: 35vw;
+    display: flex;
+    flex-direction: row;
+}
+.menu:last-child {
+    margin-left: 200px;
+}
+.tree {
+    margin-left: 20vw;
+    margin-top: 40vh;
+}
+.tree div{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #041f52;
+    color: #ffffff;
+    border-radius: 100%;
+}
+
+

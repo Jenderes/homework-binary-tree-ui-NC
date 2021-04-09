@@ -6,23 +6,35 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<div class = control>
-    <div class = "menu">
-        Добавить элемент:
-        <p>Ключ: <input id = insertValueKey type="text" placeholder="целочисленое знач."></p>
-        <p>Значение: <input id = insertValueText type="text" placeholder="любое значение"></p>
+<div class=control>
+    <div class="menu">
+        <p>Добавить элемент:</p>
+        <p><input id= "valueKey" type="text" placeholder="Ключ"></p>
+        <p><input id= "valueText" type="text" placeholder="Значение"></p>
         <p><input type="button" value="Добавить" onclick="add()"></p>
     </div>
-    <div class = "menu">
-        <p>Ключ: <select id = "select"></select></p>
-        <p><div id = findedElement></div></p>
-        <input type="button" value="Найти" onclick="find()">
-        <input type="button" value="Удалить" onclick="remove()">
+    <div class="menu">
+        <div>
+            <label for="select">Ключи дерева:</label>
+            <br>
+            <select id="select">
+
+            </select>
+        </div>
+        <div class="text_find">
+            <div id=findElement>
+
+            </div>
+        </div>
+        <div>
+            <input type="button" value="Найти" onclick="find()">
+            <input type="button" value="Удалить" onclick="remove()">
+        </div>
     </div>
 </div>
-    <div  id = "tree" class = "tree">
-           
-    </div>
-    <script src = "build/tree-node.js"></script>
+<div id="tree" class="tree">
+
+</div>
+<script src="build/tree-node.js"></script>
 </body>
 </html>

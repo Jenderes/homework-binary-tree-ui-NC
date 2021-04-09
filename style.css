@@ -1,26 +1,45 @@
 .control {
     position: absolute;
     top: 10%;
-    margin-left: 35vw;
+    left: 35vw;
     display: flex;
     flex-direction: row;
+    background: #0045c1;
+    color: white;
+    width: 30vw;
+    height: 20vh;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
 }
 .menu:last-child {
-    margin-left: 200px;
+    margin-left: 5vw;
+    width: 50%;
+}
+.menu div{
+    padding-top: 10px;
+}
+.text_find {
+    height: 20px;
+    font-size: 15pt;
+    margin-bottom: 10px;
 }
 .tree {
     margin-left: 20vw;
     margin-top: 40vh;
 }
 .tree div{
-    width: 40px;
+    width: 80px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #041f52;
     color: #ffffff;
-    border-radius: 100%;
+    border-radius: 20px;
+}
+.menu p:first-child {
+    font-size: 20px;
 }
 
 

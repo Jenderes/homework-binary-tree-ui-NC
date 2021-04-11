@@ -12,12 +12,23 @@
     align-items: center;
     border-radius: 20px;
 }
+.left_menu {
+    margin-left: 20px;
+    width: 10vw;
+}
 .menu:last-child {
     margin-left: 5vw;
     width: 50%;
 }
-.menu div{
-    padding-top: 10px;
+.error {
+    font-size: 16px;
+    color: #fddcdc;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    height: 1.5vh;
+}
+.menu p:first-child {
+    font-size: 20px;
 }
 .text_find {
     height: 20px;
@@ -38,8 +49,8 @@
     color: #ffffff;
     border-radius: 20px;
 }
-.menu p:first-child {
-    font-size: 20px;
+.added {
+    margin-top: 10px;
 }
 
 

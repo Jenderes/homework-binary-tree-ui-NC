@@ -1,14 +1,14 @@
 interface TreeNode<T> {
     data: T;
     key: number | null;
-    left: object;
-    right: object;
+    left: TreeNode<T> | null;
+    right: TreeNode<T> | null;
     level: number;
     position: number;
 }
 
-class BinarySearchTree {
-    private _root: object;
+class BinarySearchTree<T> {
+    private _root: TreeNode<T>;
 
     // создание пустого корня в конструктора
     constructor() {
@@ -21,7 +21,7 @@ class BinarySearchTree {
     }
 
     // Добавление узла
-    public insertNodeBinaryTree<T>(data: T, key: number): void {
+    public insertNodeBinaryTree(data: T, key: number): void {
         const treeNodeAdd: TreeNode<T> = {
             data: data,
             key: key,
@@ -38,58 +38,54 @@ class BinarySearchTree {
     }
 
     // Рекурсивное добавление узлав в дерево
-    private addedTreeNode(currentTreeNode: object, addedNodeTree: object): void {
-        if (addedNodeTree["key"] === currentTreeNode["key"]) {
-            currentTreeNode["data"] = addedNodeTree["data"];
+    private addedTreeNode(currentTreeNode: TreeNode<T>, addedNodeTree: TreeNode<T>): void {
+        if (addedNodeTree.key === currentTreeNode.key) {
+            currentTreeNode.data = addedNodeTree.data;
         }
-        if (addedNodeTree["key"] < currentTreeNode["key"]) {
-            if (!currentTreeNode["left"]) {
-                currentTreeNode["left"] = addedNodeTree;
+        if (addedNodeTree.key < currentTreeNode.key) {
+            if (!currentTreeNode.left) {
+                currentTreeNode.left = addedNodeTree;
             }
-            addedNodeTree["level"]++;
-            this.addedTreeNode(currentTreeNode["left"], addedNodeTree);
-
+            addedNodeTree.level++;
+            this.addedTreeNode(currentTreeNode.left, addedNodeTree);
         }
-        if (addedNodeTree["key"] > currentTreeNode["key"]) {
-            if (!currentTreeNode["right"]) {
-                currentTreeNode["right"] = addedNodeTree;
+        if (addedNodeTree.key > currentTreeNode.key) {
+            if (!currentTreeNode.right) {
+                currentTreeNode.right = addedNodeTree;
             }
-            addedNodeTree["level"]++;
-            this.addedTreeNode(currentTreeNode["right"], addedNodeTree);
+            addedNodeTree.level++;
+            this.addedTreeNode(currentTreeNode.right, addedNodeTree);
         }
     }
 
     // Поиск узла по ключу
-    public containsNodeByKey(searchKey: number): object {
-        if (this._root == null) {
-            return {error: "Дерево пустое"};
-        }
+    public containsNodeByKey(searchKey: number): TreeNode<T> {
         return this.findTreeNode(searchKey, this._root);
     }
 
     // поиск узла по ключу в ветви
-    private findTreeNode(key: number, currentTreeNode: object): object {
-        if (key === currentTreeNode["key"]) {
+    private findTreeNode(key: number, currentTreeNode: TreeNode<T>): TreeNode<T> {
+        if (key === currentTreeNode.key) {
             return currentTreeNode;
         }
-        if (key < currentTreeNode["key"]) {
-            return this.findTreeNode(key, currentTreeNode["left"]);
+        if (key < currentTreeNode.key) {
+            return this.findTreeNode(key, currentTreeNode.left);
         }
-        if (key > currentTreeNode["key"]) {
-            return this.findTreeNode(key, currentTreeNode["right"]);
+        if (key > currentTreeNode.key) {
+            return this.findTreeNode(key, currentTreeNode.right);
         }
     }
 
     // поиск родителя узла по ключу
-    private findParentTreeNode(key: number, currentTreeNode: object, parent?: object): object {
-        if (key === currentTreeNode["key"]) {
+    private findParentTreeNode(key: number, currentTreeNode: TreeNode<T>, parent?: TreeNode<T>): TreeNode<T> {
+        if (key === currentTreeNode.key) {
             return parent;
         }
-        if (key < currentTreeNode["key"]) {
-            return this.findParentTreeNode(key, currentTreeNode["left"], currentTreeNode);
+        if (key < currentTreeNode.key) {
+            return this.findParentTreeNode(key, currentTreeNode.left, currentTreeNode);
         }
-        if (key > currentTreeNode["key"]) {
-            return this.findParentTreeNode(key, currentTreeNode["right"], currentTreeNode);
+        if (key > currentTreeNode.key) {
+            return this.findParentTreeNode(key, currentTreeNode.right, currentTreeNode);
         }
     }
 
@@ -99,52 +95,52 @@ class BinarySearchTree {
     }
 
     // рекурсивное удаление узла по ключу из ветви дерева
-    private removeNode(key: number, currentNode: object): void {
-        if (key === currentNode["key"]) {
-            if (currentNode["left"] == null && currentNode["right"] == null) {
-                const parent: object = this.findParentTreeNode(currentNode["key"], this._root);
-                if (currentNode["key"] > parent["key"]) {
-                    parent["right"] = null;
+    private removeNode(key: number, currentNode: TreeNode<T>): void {
+        if (key === currentNode.key) {
+            if (currentNode.left == null && currentNode.right == null) {
+                const parent: TreeNode<T> = this.findParentTreeNode(currentNode.key, this._root);
+                if (currentNode.key > parent.key) {
+                    parent.right = null;
                 } else {
-                    parent["left"] = null;
+                    parent.left = null;
                 }
             }
-            if (currentNode["left"] == null || currentNode["right"] == null) {
-                if (currentNode["left"] != null) {
-                    currentNode["key"] = currentNode["left"]["key"];
-                    currentNode["data"] = currentNode["left"]["data"];
-                    currentNode["right"] = currentNode["left"]["right"];
-                    currentNode["left"] = currentNode["left"]["left"];
+            if (currentNode.left == null || currentNode.right == null) {
+                if (currentNode.left != null) {
+                    currentNode.key = currentNode.left.key;
+                    currentNode.data = currentNode.left.data;
+                    currentNode.right = currentNode.left.right;
+                    currentNode.left = currentNode.left.left;
                 }
-                if (currentNode["right"] != null) {
-                    currentNode["key"] = currentNode["right"]["key"];
-                    currentNode["data"] = currentNode["right"]["data"];
-                    currentNode["left"] = currentNode["right"]["left"];
-                    currentNode["right"] = currentNode["right"]["right"];
+                if (currentNode.right != null) {
+                    currentNode.key = currentNode.right.key;
+                    currentNode.data = currentNode.right.data;
+                    currentNode.left = currentNode.right.left;
+                    currentNode.right = currentNode.right.right;
                 }
             }
-            if (currentNode["left"] != null && currentNode["right"] != null) {
-                if (currentNode["right"]["left"] == null) {
-                    currentNode["key"] = currentNode["right"]["key"];
-                    currentNode["data"] = currentNode["right"]["data"];
-                    currentNode["right"] = currentNode["right"]["right"];
+            if (currentNode.left != null && currentNode.right != null) {
+                if (currentNode.right.left == null) {
+                    currentNode.key = currentNode.right.key;
+                    currentNode.data = currentNode.right.data;
+                    currentNode.right = currentNode.right.right;
                 } else {
-                    const endLeftNode: object = this.findLeftNode(currentNode["right"]);
-                    currentNode["key"] = endLeftNode["key"];
-                    currentNode["data"] = endLeftNode["data"];
-                    endLeftNode["key"] += 0.3;
-                    this.removeNode(endLeftNode["key"], currentNode);
+                    const endLeftNode: TreeNode<T> = this.findLeftNode(currentNode.right);
+                    currentNode.key = endLeftNode.key;
+                    currentNode.data = endLeftNode.data;
+                    endLeftNode.key += 0.3;
+                    this.removeNode(endLeftNode.key, currentNode);
                 }
             }
-        } else if (key > currentNode["key"]) {
-            return this.removeNode(key, currentNode["right"]);
+        } else if (key > currentNode.key) {
+            return this.removeNode(key, currentNode.right);
         } else {
-            return this.removeNode(key, currentNode["left"]);
+            return this.removeNode(key, currentNode.left);
         }
     }
 
     // Отрисока и добавления элемента в дереов и select
-    public addElement<T>(data: T, key: number, left: number, top: number): void {
+    public addElement(data: T, key: number, left: number, top: number): void {
         const div = document.createElement("div");
         div.innerHTML = String(key);
         div.id = String(key);
@@ -155,11 +151,11 @@ class BinarySearchTree {
     }
 
     // Поиск левого листового элемента
-    private findLeftNode(current: object): object {
-        if (current["left"] == null) {
+    private findLeftNode(current: TreeNode<T>): TreeNode<T> {
+        if (current.left == null) {
             return current;
         }
-        return this.findLeftNode(current["left"]);
+        return this.findLeftNode(current.left);
     }
 
     // Отрисовка дерева
@@ -167,25 +163,25 @@ class BinarySearchTree {
         this.draw(this._root);
     }
     // Рекурсия отрисовки дерева
-    private draw(node: object): void {
+    private draw(node: TreeNode<T>): void {
         let top: number = 0;
-        if (node["level"] === 0) {
+        if (node.level === 0) {
             document.getElementById("tree").innerHTML = "";
             document.getElementById("select").innerHTML = "";
             document.getElementById("findElement").innerHTML = "";
-            this.addElement(node["data"], node["key"], node["position"], top);
+            this.addElement(node.data, node.key, node.position, top);
         }
-        if (node["left"]) {
-            node["left"]["position"] = node["position"] - (40 / node["left"]["level"] / 2);
-            top = node["left"]["level"] * 5;
-            this.addElement(node["left"]["data"], node["left"]["key"], node["left"]["position"], top);
-            this.draw(node["left"]);
+        if (node.left) {
+            node.left.position = node.position - (40 / node.left.level / 2);
+            top = node.left.level * 5;
+            this.addElement(node.left.data, node.left.key, node.left.position, top);
+            this.draw(node.left);
         }
-        if (node["right"]) {
-            node["right"]["position"] = node["position"] + (40 / node["right"]["level"] / 2);
-            top = node["right"]["level"] * 5;
-            this.addElement(node["right"]["data"], node["right"]["key"], node["right"]["position"], top);
-            this.draw(node["right"]);
+        if (node.right) {
+            node.right.position = node.position + (40 / node.right.level / 2);
+            top = node.right.level * 5;
+            this.addElement(node.right.data, node.right.key, node.right.position, top);
+            this.draw(node.right);
         }
     }
     // Вывод дерева в консоль
@@ -212,14 +208,21 @@ function find(): void {
 function add(): void {
     const key = document.getElementById("valueKey")["value"];
     const value = document.getElementById("valueText")["value"];
-    document.getElementById("valueKey")["value"] = "";
-    document.getElementById("valueText")["value"] = "";
-    binarySearchTree.insertNodeBinaryTree(value, +key);
-    binarySearchTree.drawTree();
+    if (!isNaN(+key)) {
+        document.getElementById("valueKey")["value"] = "";
+        document.getElementById("valueText")["value"] = "";
+        document.getElementById("error").textContent = "";
+        binarySearchTree.insertNodeBinaryTree(value, +key);
+        binarySearchTree.drawTree();
+    } else {
+        document.getElementById("error").textContent = "Не целочисленное значение";
+    }
 }
 
 function remove(): void {
-    const key = document.getElementById("select")["value"];
-    binarySearchTree.removeNodeByKey(+key);
-    binarySearchTree.drawTree();
+        const key = document.getElementById("select")["value"];
+    if (confirm("Удалить элемент c ключом: " + key + " ?")) {
+        binarySearchTree.removeNodeByKey(+key);
+        binarySearchTree.drawTree();
+    }
 }

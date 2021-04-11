@@ -7,11 +7,12 @@
 </head>
 <body>
 <div class=control>
-    <div class="menu">
+    <div class="menu left_menu" >
         <p>Добавить элемент:</p>
-        <p><input id= "valueKey" type="text" placeholder="Ключ"></p>
-        <p><input id= "valueText" type="text" placeholder="Значение"></p>
-        <p><input type="button" value="Добавить" onclick="add()"></p>
+        <div><input id= "valueKey" type="text" placeholder="Ключ"></div>
+        <div class="error" id="error"></div>
+        <div><input id= "valueText" type="text" placeholder="Значение"></div>
+        <div class="added"><input type="button" value="Добавить" onclick="add()"></div>
     </div>
     <div class="menu">
         <div>
